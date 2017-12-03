@@ -31,7 +31,7 @@ class Node(object):
         self.next = None
 
 class LinkedList(object):
-    ''' LinkedList container class with square bracket and iteration support.
+    ''' LinkedList container class.
     '''
     def __init__(self):
         self.head = None
@@ -39,37 +39,12 @@ class LinkedList(object):
     def insert(self, item):
         if self.head is None:
             self.head = Node(item)
-        self._insert(self.head, item)
-
-    def _insert(self, node, item):
-        if node.next is None:
-            node.next = Node(item)
         else:
-            self._insert(node.next, item)
+            current = self.head
+            while current.next:
+                current = current.next
 
-    def __iter__(self):
-        current = self.head
-        if not current:
-            raise StopIteration
-
-        while current.next:
-            yield current.next
-            current = current.next
-
-    def __getitem__(self, key):
-        current = self.head
-        if current is None:
-            raise IndexError
-
-        count = 0
-        while current.next:
-            if key == count:
-                return current.next
-            count += 1
-            current = current.next
-
-        if current.next is None:
-            raise IndexError
+            current.next = Node(item)
 
 def create_linked_list(input_list):
     ''' Helper function to create linked list.
@@ -86,7 +61,7 @@ def inverse_captcha(input_list):
     linked_list = create_linked_list(input_list)
     answer = 0
 
-    head = linked_list[0]
+    head = linked_list.head
     current = head
 
     while current.next:
@@ -102,3 +77,5 @@ def inverse_captcha(input_list):
 if __name__ == '__main__':
     print(inverse_captcha([1, 1, 2, 2]))
     print(inverse_captcha([9, 1, 2, 1, 2, 1, 2, 9]))
+    print(inverse_captcha([1, 1, 1, 1]))
+    print(inverse_captcha([1, 2, 3, 4]))
