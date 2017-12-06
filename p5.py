@@ -47,7 +47,7 @@ def solution(input_list):
     i = 0
     num_steps = 0
     length = len(input_list)
-    while not (i >= length):
+    while not i >= length:
         num_steps += 1
         prev = i
         i += input_list[i]
